@@ -1,4 +1,4 @@
-# Meet
+# ![Meet brand logo](src/img/meet-logo-120x120.png) Meet App
 
 ## Description:
 To build a serverless, progressive web application (PWA) with React using a
@@ -128,3 +128,6 @@ So that *I can gain high-level information about cities and events using charts/
 **<ins>Given:</ins>** App is loaded in browser <br>
 **<ins>When:</ins>** User opens main page with event listings <br>
 **<ins>Then:</ins>** Charts/graphs should display event information by city to user <br>
+
+## Serverless Google OAuth/Calendar API:
+![Meet serverless architecture diagram](/src/img/Meet_App_Serverless_Diagram.png)
