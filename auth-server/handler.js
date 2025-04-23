@@ -46,7 +46,9 @@ module.exports.getAccessToken = async (event) => {
       if (error) {
         return reject(error);
       }
-      return resolve(response);
+      else {
+        return resolve(response);
+      }
     });
   })
     .then((results) => { //Respond with OAuth token
@@ -69,4 +71,51 @@ module.exports.getAccessToken = async (event) => {
         body: JSON.stringify(error)
       };
     });
-}; 
+};
+
+module.exports.getCalendarEvents = async (event) => {
+
+  const access_token = decodeURIComponent(`${event.pathParameters.access_token}`); //Decode auth code from the URL query
+  oAuth2Client.setCredentials({ access_token });
+
+  return new Promise((resolve, reject) => {
+    //do the fetch here
+    calendar.events.list(
+      {
+        calendarId: CALENDAR_ID,
+        auth: oAuth2Client,
+        timeMin: new Date().toISOString(),
+        singleEvents: true,
+        orderBy: "startTime"
+      },
+      (error, response) => {
+        if (error) {
+          reject(error);
+        }
+        else {
+          resolve(response);
+        }
+      }
+    );
+  })
+    .then((results) => {
+      return {
+        statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true
+        },
+        body: JSON.stringify({ events: results.data.items })
+      };
+    })
+    .catch((error) => { //Error getting events from Google Calendar API
+      return {
+        statusCode: 500,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true
+        },
+        body: JSON.stringify(error)
+      };
+    });
+};

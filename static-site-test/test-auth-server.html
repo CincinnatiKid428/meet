@@ -24,6 +24,18 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
     }
+
+    .green-text {
+      color: green;
+    }
+
+    .red-text {
+      color: red;
+    }
+
+    .hide {
+      visibility: hidden;
+    }
   </style>
 
 
@@ -33,7 +45,7 @@
     <p>Click the button below to get your OAuth URL.</p>
     <button id="getAuthUrlButton">Get OAuth URL</button>
     <p id="result"></p>
-    <a id="authURL" href target="_blank">Click to authorize</a>
+    <a id="authURL" href target="_blank" class="hide">Click to authorize</a>
 
     <!-- STEP 2 -- MAKE SURE STEP 1 WORKS BEFORE MOVING ON-->
 
@@ -48,6 +60,12 @@
     </label>
     <button id="getToken">Get Token</button>
     <p id="accessToken"></p>
+
+    <!-- STEP 3 -- MAKE SURE STEP 2 WORKS BEFORE MOVING ON-->
+    <h4>Step 3: Get the calendar events using your access token</h4>
+    <button id="getEvents">Get Events</button>
+    <p id="events"></p>
+
   </main>
 
   <script type="text/javascript">
@@ -69,8 +87,14 @@
           // we get the value of authUrl
           const { authUrl } = JSON.parse(result);
           // then add it to the html
+          resultElement.classList.add("green-text")
           resultElement.innerText = result;
           resultLink.href = authUrl;
+          resultLink.classList.remove("hide");
+        })
+        .catch((e) => {
+          resultElement.classList.add("red-text");
+          resultElement.innerText = e;
         });
     };
     // --------------------- END OF STEP 1 -----------------------------------
@@ -84,26 +108,51 @@
 
 
     getAccessToken.onclick = function () {
-      let code = codeValue.value;
+      let authCode = codeValue.value;
 
       // if the authorization code is not URL-encoded, then URL-encode it.
-      if (decodeURIComponent(code) === code) {
-        code = encodeURIComponent(codeValue.value);
+      if (decodeURIComponent(code) === authCode) {
+        authCode = encodeURIComponent(codeValue.value);
       }
-      const getTokenRequest = `${getToken}/${code}`;
+      const getTokenRequest = `${getToken}/${authCode}`;
       fetch(getTokenRequest)
         .then(function (response) {
           return response.json();
         })
         .then(function (json) {
+          accessTokenElement.classList.add("green-text");
           accessTokenElement.innerText = JSON.stringify(json);
         })
         .catch(function (e) {
+          accessTokenElement.classList.add("red-text");
           accessTokenElement.innerText = e;
         });
     };
     // --------------------- END OF STEP 2 -----------------------------------------
 
+    // --------------------- STEP 3 ---------------------
+    const getEvents = document.getElementById("getEvents");
+    const events = document.getElementById("events");
+    const getCalendarEvents = "https://ixoirgq7bd.execute-api.us-east-1.amazonaws.com/dev/api/get-events"; //Add /access_token to end for ull URL
+
+
+    getEvents.onclick = function () {
+      const { access_token } = JSON.parse(accessTokenElement.innerText);
+      const eventRequest = `${getCalendarEvents}/${access_token}`; //Build the request URL, add access token
+      fetch(eventRequest)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (json) {
+          events.classList.add("green-text");
+          events.innerText = JSON.stringify(json, null, 2);
+        })
+        .catch((e) => {
+          events.classList.add("red-text");
+          events.innerText = e;
+        });
+    };
+    // --------------------- END OF STEP 3 ---------------------
   </script>
 </body>
 
