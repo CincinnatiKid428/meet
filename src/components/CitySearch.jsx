@@ -1,8 +1,8 @@
 // src/components/CitySearch.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const CitySearch = ({ allLocations }) => {
+const CitySearch = ({ allLocations, setCurrentCity }) => {
 
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery] = useState("");
@@ -24,7 +24,12 @@ const CitySearch = ({ allLocations }) => {
     const value = event.target.textContent;
     setQuery(value);
     setShowSuggestions(false); //Hide the list after click
+    setCurrentCity(value);
   };
+
+  useEffect(() => {
+    setSuggestions(allLocations);
+  }, [`${allLocations}`]); //using strigified value of allLocations to detect changes
 
   return (
     <div id="city-search">
