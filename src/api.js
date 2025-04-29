@@ -2,34 +2,6 @@
 
 import mockData from "./mock-data";
 
-
-/**
- *
- * @param {*} events:
- * The following function should be in the “api.js” file.
- * This function takes an events array, then uses map to create a new array with only locations.
- * It will also remove all duplicates by creating another new array using the spread operator and spreading a Set.
- * The Set will remove all duplicates from the array.
- */
-export const extractLocations = (events) => {
-  const extractedLocations = events.map((event) => event.location);
-  const locations = [...new Set(extractedLocations)];
-  return locations;
-};
-
-/**
- * Checks validity of access token with Google
- * @param {*} accessToken 
- * @returns 
- */
-const checkToken = async (accessToken) => {
-  const response = await fetch(
-    `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
-  );
-  const result = await response.json();
-  return result;
-};
-
 /**
  *
  * This function will fetch the list of all events
@@ -55,6 +27,20 @@ export const getEvents = async () => {
 };
 
 /**
+ *
+ * @param {*} events:
+ * The following function should be in the “api.js” file.
+ * This function takes an events array, then uses map to create a new array with only locations.
+ * It will also remove all duplicates by creating another new array using the spread operator and spreading a Set.
+ * The Set will remove all duplicates from the array.
+ */
+export const extractLocations = (events) => {
+  const extractedLocations = events.map((event) => event.location);
+  const locations = [...new Set(extractedLocations)];
+  return locations;
+};
+
+/**
  * Retreives access token from Google using authentication 
  * code parameter.
  * @param {*} code 
@@ -75,6 +61,19 @@ const getToken = async (code) => {
     error.json();
   }
 }
+
+/**
+ * Checks validity of access token with Google
+ * @param {*} accessToken 
+ * @returns 
+ */
+const checkToken = async (accessToken) => {
+  const response = await fetch(
+    `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
+  );
+  const result = await response.json();
+  return result;
+};
 
 /**
  * This function will ensure user has authenticated and has a valid
@@ -105,7 +104,9 @@ export const getAccessToken = async () => {
 
 };
 
-//Cleans up URL in browser
+/**
+ * Cleans up URL in browser
+ */
 const removeQuery = () => {
   let newurl;
   if (window.history.pushState && window.location.pathname) {

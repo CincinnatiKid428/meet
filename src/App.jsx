@@ -17,6 +17,7 @@ const App = () => {
   const [allLocations, setAllLocations] = useState([]);
   const [currentCity, setCurrentCity] = useState("See all cities");
 
+  //Retrieves event data from Google Calendar API / mock-data for local testing
   const fetchEventData = async () => {
     const allEvents = await getEvents();
     const filteredEvents = currentCity === "See all cities" ?
@@ -28,12 +29,12 @@ const App = () => {
 
   useEffect(() => {
     fetchEventData();
-  }, [currentCity]);
+  }, [currentCity, currentNOE]);
 
   return (
     <div className="App">
       <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
-      Number of Events: <NumberOfEvents />
+      Number of Events: <NumberOfEvents setCurrentNOE={setCurrentNOE} />
       <EventList events={events} />
     </div>
   );

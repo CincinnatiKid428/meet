@@ -1,9 +1,12 @@
 // src/__tests__/NumberOfEvents.test.js
 
 import React from 'react';
-import { render, waitFor } from '@testing-library/react'
+import { render, within, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event';
+import { getEvents } from '../api';
 
+import App from '../App';
+import EventList from '../components/EventList';
 import NumberOfEvents from '../components/NumberOfEvents';
 
 
@@ -11,7 +14,7 @@ describe('<NumberOfEvents /> Component', () => {
   let NumOfEventsComponent;
 
   beforeEach(() => {
-    NumOfEventsComponent = render(<NumberOfEvents />);
+    NumOfEventsComponent = render(<NumberOfEvents setCurrentNOE={() => { }} />);
   });
 
   test('Contains and element with role "textbox"', () => {
@@ -42,4 +45,37 @@ describe('<NumberOfEvents /> Component', () => {
 
     await waitFor(() => expect(numOfEventsTextbox.value).toBe('10'));
   });
+});
+
+describe('<NumberOfEvents /> Integration', () => {
+
+  test('User inputs number of cities and event list shows that number of events (or up to that number if there are less available than input value', async () => {
+    const user = userEvent.setup();
+    const allEvents = await getEvents();
+
+    const AppComponent = render(<App />);
+    const AppDOM = AppComponent.container.firstChild;
+
+    //First user will enter 10 events
+    const NumberOfEventsDOM = AppDOM.querySelector('#number-of-events');
+    await user.type(NumberOfEventsDOM, '{backspace}{backspace}10');
+
+    const EventListDOM = AppDOM.querySelector('#event-list');
+    const eventListItems = within(EventListDOM).queryAllByRole('listitem');
+
+    // (10 events <= 32 total events)
+    expect(eventListItems.length).toBeLessThanOrEqual(allEvents.length);
+
+    //User then changes show 10 events to show 99 events
+    await user.type(NumberOfEventsDOM, '{backspace}{backspace}99');
+
+    //will i need to re-query to get refreshed eventListItems?
+
+    // (99 events > 32 total events, show max of 32)
+    waitFor(() => {
+      expect(eventListItems.length).toBe(allEvents.length);
+    });
+
+  });
+
 });

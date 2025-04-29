@@ -2,20 +2,22 @@
 
 import React, { useState } from 'react';
 
-const NumberOfEvents = () => {
+const NumberOfEvents = ({ setCurrentNOE }) => {
 
-  const [numOfEvents, setNumOfEvents] = useState(32); //Number of events is 32 by default
+  const [numOfEventsInput, setNumOfEventsInput] = useState(32); //Number of events is 32 by default
 
   const handleInputChanged = (event) => {
     const value = parseInt(event.target.value, 10); // Convert string to number
-    setNumOfEvents(isNaN(value) ? 0 : value); // Handle empty or invalid input with 0
+    const safeValue = isNaN(value) ? 0 : value; // Handle empty or invalid input with 0
+    setNumOfEventsInput(safeValue); //
+    setCurrentNOE(safeValue);  //Send value back to <App /> via prop function and update state
   };
 
   return (
     <input
       id="number-of-events"
       type="text"
-      value={numOfEvents}
+      value={numOfEventsInput}
       onChange={handleInputChanged}
       placeholder='Enter number of events'
     >
