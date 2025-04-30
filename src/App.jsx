@@ -12,7 +12,7 @@ import './App.css';
 //Increase to 1px to add debug borders
 const debugBorder = "0px solid blue";
 
-//Use mock data for local testing
+//Determine path for image file based on URL
 const meetLogoImgPath = window.location.href.startsWith('http://localhost') ? "./../public/meet-logo.svg" : "/meet-logo.svg";
 
 const App = () => {
