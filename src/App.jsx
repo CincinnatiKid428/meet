@@ -12,6 +12,10 @@ import './App.css';
 //Increase to 1px to add debug borders
 const debugBorder = "0px solid blue";
 
+//Use mock data for local testing
+const meetLogoImgPath = window.location.href.startsWith('http://localhost') ? "./../public/meet-logo.svg" : "/meet-logo.svg";
+alert(`img path is : ${meetLogoImgPath}`);
+
 const App = () => {
 
   const [events, setEvents] = useState([]);
@@ -35,7 +39,7 @@ const App = () => {
 
   return (
     <div className="App" style={{ border: debugBorder }}>
-      <img src="src/img/meet-logo.svg" className="meet-logo" alt="Meet logo - logo created using RecraftAI and is property of RecraftAI." />
+      <img src={meetLogoImgPath} className="meet-logo" alt="Meet logo - logo created using RecraftAI and is property of RecraftAI." />
       <h2>Welcome to Meet</h2>
       Find a City:<br />
       <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
