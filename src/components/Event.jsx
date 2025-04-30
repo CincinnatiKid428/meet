@@ -11,17 +11,17 @@ const Event = ({ event }) => {
 
   return (
     <li>
-      <div>
-        <p>{event.summary}</p>
+      <div className="event">
+        <p className="event-summary">{event.summary}</p>
         <p>{event.created}</p>
         <p>{event.location}</p>
         {collapsed ? (
-          <Button variant="primary" className="btn-md" onClick={handleShowDetails}>Show Details</Button>
+          <button type="button" className="details-btn" onClick={handleShowDetails}>Show Details</button>
         ) : (
           <>
             <a href={event.htmlLink} target="_blank">See details on Google Calendar</a>
             <div id="event-description">{event.description}</div>
-            <Button variant="primary" className="btn-md" onClick={handleHideDetails}>Hide Details</Button>
+            <button type="button" className="details-btn" onClick={handleHideDetails}>Hide Details</button>
           </>
         )}
 

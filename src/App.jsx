@@ -9,6 +9,8 @@ import NumberOfEvents from './components/NumberOfEvents';
 
 import './App.css';
 
+//Increase to 1px to add debug borders
+const debugBorder = "0px solid blue";
 
 const App = () => {
 
@@ -32,9 +34,13 @@ const App = () => {
   }, [currentCity, currentNOE]);
 
   return (
-    <div className="App">
+    <div className="App" style={{ border: debugBorder }}>
+      <img src="src/img/meet-logo.svg" className="meet-logo" alt="Meet logo - logo created using RecraftAI and is property of RecraftAI." />
+      <h2>Welcome to Meet</h2>
+      Find a City:<br />
       <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
-      Number of Events: <NumberOfEvents setCurrentNOE={setCurrentNOE} />
+      Number of Events:<br />
+      <NumberOfEvents setCurrentNOE={setCurrentNOE} />
       <EventList events={events} />
     </div>
   );
