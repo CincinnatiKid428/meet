@@ -14,7 +14,6 @@ const debugBorder = "0px solid blue";
 
 //Use mock data for local testing
 const meetLogoImgPath = window.location.href.startsWith('http://localhost') ? "./../public/meet-logo.svg" : "/meet-logo.svg";
-alert(`img path is : ${meetLogoImgPath}`);
 
 const App = () => {
 
