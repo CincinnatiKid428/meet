@@ -13,6 +13,11 @@ export const getEvents = async () => {
     return mockData;
   }
 
+  //Use mock data for mock production URL testing for meet-logo.svg path
+  if (window.location.href.startsWith('http://production')) {
+    return mockData;
+  }
+
   const token = await getAccessToken();
 
   if (token) {

@@ -1,5 +1,7 @@
-module.exports = {
-  testEnvironment: 'jest-environment-jsdom',
+// jest.config.js
+
+export default {
+  testEnvironment: 'jest-environment-jsdom', // default for unit/integration tests
   transform: {
     '^.+\\.jsx?$': 'babel-jest', // Transform JavaScript and JSX files using Babel
   },

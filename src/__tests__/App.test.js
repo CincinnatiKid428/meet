@@ -13,7 +13,6 @@ describe('<App /> Component', () => {
     AppDOM = render(<App />).container.firstChild;
   });
 
-
   test('Renders <EventList /> component ', () => {
     expect(AppDOM.querySelector('#event-list')).toBeInTheDocument();
   });
@@ -24,6 +23,34 @@ describe('<App /> Component', () => {
 
   test('Render <NumberOfEvents /> component', () => {
     expect(AppDOM.querySelector('#number-of-events')).toBeInTheDocument();
+  });
+
+  //Testing proper localhost path
+  test('Image element with meet-logo.svg has proper path based on URL starting with "http://localhost"', () => {
+    const browserURL = window.location.href;
+    const logoImage = AppDOM.querySelector(".meet-logo");
+
+    //Assert for proper localhost image path
+    expect(browserURL).toContain("http://localhost");
+    expect(logoImage.src).toContain("/public/meet-logo.svg");
+  });
+
+  test('Image element uses correct path when not running on localhost', () => {
+    const originalLocation = window.location;
+
+    delete window.location;
+    window.location = {
+      ...originalLocation,
+      href: 'http://production' //This is a mock URL, but will be recognized in api.js and not call a fetch within node.js
+    };
+
+    const { container } = render(<App />);
+    const logoImage = container.querySelector(".meet-logo");
+
+    expect(logoImage.src).toContain('/meet-logo.svg');
+
+    // Restore original location
+    window.location = originalLocation;
   });
 
 });

@@ -18,11 +18,11 @@ const Event = ({ event }) => {
         {collapsed ? (
           <button type="button" className="details-btn" onClick={handleShowDetails}>Show Details</button>
         ) : (
-          <>
+          <div id="event-details">
             <a href={event.htmlLink} target="_blank">See details on Google Calendar</a>
-            <div id="event-description">{event.description}</div>
+            <p id="event-description">{event.description}</p>
             <button type="button" className="details-btn" onClick={handleHideDetails}>Hide Details</button>
-          </>
+          </div>
         )}
 
       </div>

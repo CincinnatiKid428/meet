@@ -12,15 +12,15 @@ import './App.css';
 //Increase to 1px to add debug borders
 const debugBorder = "0px solid blue";
 
-//Determine path for image file based on URL
-const meetLogoImgPath = window.location.href.startsWith('http://localhost') ? "./../public/meet-logo.svg" : "/meet-logo.svg";
-
 const App = () => {
 
   const [events, setEvents] = useState([]);
   const [currentNOE, setCurrentNOE] = useState(32);
   const [allLocations, setAllLocations] = useState([]);
   const [currentCity, setCurrentCity] = useState("See all cities");
+
+  //Determine path for image file based on URL
+  const meetLogoImgPath = window.location.href.startsWith('http://localhost') ? "./../public/meet-logo.svg" : "/meet-logo.svg";
 
   //Retrieves event data from Google Calendar API / mock-data for local testing
   const fetchEventData = async () => {
@@ -47,6 +47,6 @@ const App = () => {
       <EventList events={events} />
     </div>
   );
-}
+};
 
 export default App;
