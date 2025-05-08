@@ -14,7 +14,7 @@ const Event = ({ event }) => {
       <div className="event">
         <p className="event-summary">{event.summary}</p>
         <p>{event.created}</p>
-        <p>{event.location}</p>
+        <p className="event-location">{event.location}</p>
         {collapsed ? (
           <button type="button" className="details-btn" onClick={handleShowDetails}>Show Details</button>
         ) : (
