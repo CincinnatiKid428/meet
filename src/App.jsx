@@ -9,6 +9,9 @@ import NumberOfEvents from './components/NumberOfEvents';
 
 import './App.css';
 
+import * as atatus from 'atatus-spa';
+atatus.config('909884598afd47f1a9001c30d43dc226').install();
+
 //Increase to 1px to add debug borders
 const debugBorder = "0px solid blue";
 
@@ -48,5 +51,5 @@ const App = () => {
     </div>
   );
 };
-
+atatus.notify(new Error('Test Atatus Setup'));
 export default App;

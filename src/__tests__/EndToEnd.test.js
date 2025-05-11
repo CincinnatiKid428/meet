@@ -23,9 +23,15 @@ describe('filter events by city', () => {
   });
 
   test('When user hasn\'t searched for a city, show upcoming events from all cities', async () => {
-    //events should default to 32 events for all cities, check length of list of events
+    //Events should default to show 32 events for all cities, check length of list of events
     const eventList = await page.$$('.event');
     expect(eventList.length).toBe(32);
+    // *!* Is there a more accurate way to check this than just default number of events listed? 
+
+    // *!* Make sure city search box has no input value
+    const citySearchInputText = await citySearchInput.evaluate(input => input.value.trim());
+    expect(citySearchInputText).toBe("");
+
   });
 
   test('User should see a list of suggestions when they search for a city', async () => {
