@@ -9,12 +9,9 @@ import NumberOfEvents from './components/NumberOfEvents';
 
 import './App.css';
 
-//-----Atatus import and config
+//----- Atatus import and config
 import * as atatus from 'atatus-spa';
 atatus.config('909884598afd47f1a9001c30d43dc226').install();
-
-//Increase to 1px to add debug borders
-const debugBorder = "0px solid blue";
 
 const App = () => {
 
@@ -41,13 +38,15 @@ const App = () => {
   }, [currentCity, currentNOE]);
 
   return (
-    <div className="App" style={{ border: debugBorder }}>
+    <div className="App">
       <img src={meetLogoImgPath} className="meet-logo" alt="Meet logo - logo created using RecraftAI and is property of RecraftAI." />
-      <h2>Welcome to Meet</h2>
-      Find a City:<br />
-      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
-      Number of Events:<br />
-      <NumberOfEvents setCurrentNOE={setCurrentNOE} />
+      <div id="search-boxes">
+        <h2>Welcome to Meet</h2>
+        Find a City:<br />
+        <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
+        Number of Events:<br />
+        <NumberOfEvents setCurrentNOE={setCurrentNOE} />
+      </div>
       <EventList events={events} />
     </div>
   );

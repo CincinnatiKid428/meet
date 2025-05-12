@@ -1,16 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:500);
 
-.App {
+:root {
+  --debug-border-width: 0px; /* Set to 0px to hide borders */
+}
 
-  /* New styles to center the container */
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+.App {
+  border: red solid var(--debug-border-width);
+  margin: 10px;
+  font-variant: small-caps;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+
+  /*min-height: 100vh;*/
   text-align: center;
-  padding: 2% 5%;
-  font-variant:small-caps;
+  /*padding: 2% 5%;*/
 }
 
 .App * {
@@ -27,10 +32,16 @@ p {
 }
 
 .meet-logo{
+  border: orange solid var(--debug-border-width);
   max-width: 400px;
-  width:100%;
   height:auto;
   border-radius: 10%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#search-boxes{
+  border: purple solid var(--debug-border-width);
 }
 
 input[type="text"],
@@ -53,10 +64,13 @@ input[type="number"] {
   width: 250px;
 }
 
+.text-align-center{
+  text-align: center;
+}
+
 #city-search {
   display: flex;
   flex-direction: column;
-  margin: auto;
   position: relative;
 }
 
@@ -83,21 +97,21 @@ input[type="number"] {
   border-bottom-right-radius: 4px;
 }
 
-/*.suggestions > li:hover {
-  background-color: lightgreen;
-}*/
+#event-list{
+  border: blue solid var(--debug-border-width);
+  justify-self:center;
+}
 
 .event {
   padding: 10px 10px 35px;
-  margin-bottom: 10px;
-  margin-left: 10px;
+  margin-bottom:5px;
   text-align: left;
   border: 1px solid #ccc;
   border-radius: 4px;
   position: relative;
-
+  justify-self:center;
   width:fit-content;
-  min-width:400px;
+  min-width:450px;
 }
 
 .event-summary {
