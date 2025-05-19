@@ -31,10 +31,10 @@ describe('<EventList /> integration', () => {
   test('renders a non-empty list of events when the app is mounted and rendered', async () => {
     let AppComponent;
 
-    await act(async () => {
+    await waitFor(() => {
       AppComponent = render(<App />);
       // Wait for the fetchEventData state update to complete
-      await Promise.resolve(); // microtask queue flush (sometimes needed)
+      //Promise.resolve(); // microtask queue flush (sometimes needed)
     });
 
     const AppDOM = AppComponent.container.firstChild;

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-const CitySearch = ({ allLocations, setCurrentCity }) => {
+const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
 
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery] = useState("");
@@ -17,6 +17,14 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
 
     setQuery(value);
     setSuggestions(filteredLocations);
+
+    let infoText;
+    if (filteredLocations.length === 0) {
+      infoText = "We can't find the city you are looking for. Please try another city.";
+    } else {
+      infoText = "";
+    }
+    setInfoAlert(infoText);
   };
 
   //Handles user click on a suggestion from list
@@ -25,6 +33,7 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
     setQuery(value);
     setShowSuggestions(false); //Hide the list after click
     setCurrentCity(value);
+    setInfoAlert("");
   };
 
   useEffect(() => {

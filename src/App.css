@@ -8,14 +8,7 @@
   border: red solid var(--debug-border-width);
   margin: 10px;
   font-variant: small-caps;
-  /*display: flex;*/
-  /*flex-direction: column;*/
-  /*justify-content: center;*/
-  /*align-items: center;*/
-
-  /*min-height: 100vh;*/
   text-align: center;
-  /*padding: 2% 5%;*/
 }
 
 .App * {
@@ -39,6 +32,14 @@ p {
   margin-left: auto;
   margin-right: auto;
 }
+
+.alerts-container {
+  position: fixed;
+  top: 0px;
+  left: 20px;
+  width: 275px;
+  z-index: 1000;
+ }
 
 #search-boxes{
   border: purple solid var(--debug-border-width);
@@ -130,7 +131,6 @@ input[type="number"] {
   cursor: pointer;
   
   font-variant:small-caps;
-  
 }
 
 .details-btn:hover {
@@ -142,4 +142,17 @@ input[type="number"] {
 
 .details-btn:active {
   border-color:rgb(89,71,99);
+}
+
+@media (max-width: 450px) {
+  .meet-logo {
+    width: 300px;
+    height: auto;
+  }
+
+  .event {
+    min-width: 300px;
+    width: 300px;
+    padding: 5px;
+  }
 }
