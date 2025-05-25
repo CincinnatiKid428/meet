@@ -40,7 +40,7 @@ class InfoAlert extends Alert {
   constructor(props) {
     super(props);
     this.color = 'rgb(0, 0, 255)';
-    this.bgColor = 'rgb(220, 220, 255)';
+    this.bgColor = 'rgb(228, 228, 252)';
     this.alertType = 'info-alert'
   }
 }
@@ -48,8 +48,8 @@ class InfoAlert extends Alert {
 class WarningAlert extends Alert {
   constructor(props) {
     super(props);
-    this.color = 'rgb(255, 175, 0)';
-    this.bgColor = 'rgb(255, 222, 180)';;
+    this.color = 'rgb(226, 121, 0)';
+    this.bgColor = 'rgb(255, 237, 214)';;
     this.alertType = 'error-alert';
   }
 }
@@ -58,7 +58,7 @@ class ErrorAlert extends Alert {
   constructor(props) {
     super(props);
     this.color = 'rgb(255, 0, 0)';
-    this.bgColor = 'rgb(247, 172, 172)';
+    this.bgColor = 'rgb(255, 222, 222)';
     this.alertType = 'error-alert';
   }
 }

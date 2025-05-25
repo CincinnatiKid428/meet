@@ -16,13 +16,19 @@ const Event = ({ event }) => {
         <p>{event.created}</p>
         <p className="event-location">{event.location}</p>
         {collapsed ? (
-          <button type="button" className="details-btn" onClick={handleShowDetails}>Show Details</button>
-        ) : (
-          <div id="event-details">
-            <a href={event.htmlLink} target="_blank">See details on Google Calendar</a>
-            <p id="event-description">{event.description}</p>
-            <button type="button" className="details-btn" onClick={handleHideDetails}>Hide Details</button>
+          <div className="button-container">
+            <button type="button" className="details-btn" onClick={handleShowDetails}>Show Details</button>
           </div>
+        ) : (
+          <>
+            <div id="event-details">
+              <a href={event.htmlLink} target="_blank">See details on Google Calendar</a>
+              <p id="event-description">{event.description}</p>
+            </div>
+            <div className="button-container">
+              <button type="button" className="details-btn" onClick={handleHideDetails}>Hide Details</button>
+            </div>
+          </>
         )}
 
       </div>
