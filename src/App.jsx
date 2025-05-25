@@ -6,7 +6,7 @@ import { getEvents, extractLocations } from './api';
 import EventList from './components/EventList';
 import CitySearch from './components/CitySearch';
 import NumberOfEvents from './components/NumberOfEvents';
-import { InfoAlert, ErrorAlert } from './components/Alert';
+import { InfoAlert, WarningAlert, ErrorAlert } from './components/Alert';
 
 import './App.css';
 
@@ -21,6 +21,7 @@ const App = () => {
   const [allLocations, setAllLocations] = useState([]);
   const [currentCity, setCurrentCity] = useState("See all cities");
   const [infoAlert, setInfoAlert] = useState("");
+  const [warningAlert, setWarningAlert] = useState("");
   const [errorAlert, setErrorAlert] = useState("");
 
   //Determine path for image file based on URL
@@ -37,6 +38,14 @@ const App = () => {
   };
 
   useEffect(() => {
+    console.log(`App.jsx|Startig useEffect() with navigator.onLine [${navigator.onLine}]`);
+
+    //If network is offline, show warning alert
+    if (navigator.onLine) {
+      setWarningAlert("");
+    } else {
+      setWarningAlert("No internet connection detected. Reconnect for the most current event listing.");
+    }
     fetchEventData();
   }, [currentCity, currentNOE]);
 
@@ -45,6 +54,7 @@ const App = () => {
       <img src={meetLogoImgPath} className="meet-logo" alt="Meet logo - logo created using RecraftAI and is property of RecraftAI." />
       <div className="alerts-container">
         {infoAlert.length ? <InfoAlert text={infoAlert} /> : null}
+        {warningAlert.length ? <WarningAlert text={warningAlert} /> : null}
         {errorAlert.length ? <ErrorAlert text={errorAlert} /> : null}
       </div>
       <div id="search-boxes">
