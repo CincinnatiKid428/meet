@@ -1,6 +1,8 @@
 // src/api.js
 
 import mockData from "./mock-data";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
 /**
  *
@@ -8,27 +10,49 @@ import mockData from "./mock-data";
  */
 export const getEvents = async () => {
 
-  //Use mock data for local testing
-  if (window.location.href.startsWith('http://localhost')) {
-    return mockData;
+  //Start progress bar loading
+  NProgress.start();
+
+  try {
+    //Use mock data for local testing
+    if (window.location.href.startsWith('http://localhost')) {
+      return mockData;
+    }
+
+    //Use mock data for mock production URL testing for meet-logo.svg path
+    if (window.location.href.startsWith('http://production')) {
+      return mockData;
+    }
+
+    //PWA - User is offline, return local storage cached events or empty array
+    if (!navigator.onLine) {
+      const events = localStorage.getItem("lastEvents");
+      return events ? JSON.parse(events) : [];
+    }
+
+    const token = await getAccessToken();
+
+    if (token) {
+      removeQuery();
+      const url = "https://ixoirgq7bd.execute-api.us-east-1.amazonaws.com/dev/api/get-events" + "/" + token;
+      const response = await fetch(url);
+      const result = await response.json();
+
+      if (result) {
+        localStorage.setItem("lastEvents", JSON.stringify(result.events));
+        return result.events;
+      } else return null;
+    }
+  } catch (error) {
+    console.error("api.js|Failed to fetch events:", error);
+    return null;
+  }
+  finally {
+    NProgress.done();
   }
 
-  //Use mock data for mock production URL testing for meet-logo.svg path
-  if (window.location.href.startsWith('http://production')) {
-    return mockData;
-  }
 
-  const token = await getAccessToken();
 
-  if (token) {
-    removeQuery();
-    const url = "https://ixoirgq7bd.execute-api.us-east-1.amazonaws.com/dev/api/get-events" + "/" + token;
-    const response = await fetch(url);
-    const result = await response.json();
-    if (result) {
-      return result.events;
-    } else return null;
-  }
 };
 
 /**
