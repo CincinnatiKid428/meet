@@ -8,6 +8,13 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
+      includeAssets: [ //Added for pre-caching images
+        'favicon.ico',
+        'meet-app-144.png',
+        'meet-app-192.png',
+        'meet-app-512.png',
+        'meet-logo.svg'
+      ],
       manifest: {
         "short_name": "Meet App",
         "name": "Create Meet App Sample",
