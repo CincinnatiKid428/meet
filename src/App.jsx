@@ -6,13 +6,15 @@ import { getEvents, extractLocations } from './api';
 import EventList from './components/EventList';
 import CitySearch from './components/CitySearch';
 import NumberOfEvents from './components/NumberOfEvents';
+import CityEventsChart from './components/CityEventsChart';
+
 import { InfoAlert, WarningAlert, ErrorAlert } from './components/Alert';
 
 import './App.css';
 
-//----- Atatus import and config
-import * as atatus from 'atatus-spa';
-atatus.config('909884598afd47f1a9001c30d43dc226').install();
+//----- Atatus import and config /*Atatus trial expires: 5/25/2025*/
+//import * as atatus from 'atatus-spa';
+//atatus.config('909884598afd47f1a9001c30d43dc226').install();
 
 const App = () => {
 
@@ -38,7 +40,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    console.log(`App.jsx|Startig useEffect() with navigator.onLine [${navigator.onLine}]`);
 
     //If network is offline, show warning alert
     if (navigator.onLine) {
@@ -64,6 +65,7 @@ const App = () => {
         Number of Events:<br />
         <NumberOfEvents setCurrentNOE={setCurrentNOE} setErrorAlert={setErrorAlert} />
       </div>
+      <CityEventsChart allLocations={allLocations} events={events} />
       <EventList events={events} />
     </div>
   );

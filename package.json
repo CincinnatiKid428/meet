@@ -17,6 +17,7 @@
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
+    "recharts": "^2.15.3",
     "vite-plugin-pwa": "^1.0.0",
     "workbox-core": "^7.3.0",
     "workbox-expiration": "^7.3.0",
