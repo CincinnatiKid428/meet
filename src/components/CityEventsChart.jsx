@@ -11,8 +11,6 @@ import {
 } from 'recharts';
 
 const CityEventsChart = ({ allLocations, events }) => {
-  console.log(`CityEventsChart.jsx|Starting component...`);
-  //console.log(`CityEventsChart.jsx|props: allLocations[${allLocations}] , events[${events}]`);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -23,10 +21,8 @@ const CityEventsChart = ({ allLocations, events }) => {
     const data = allLocations.map((location) => {
       const count = events.filter((event) => event.location === location).length
       const city = location.split((/, | -/))[0]
-      console.log(`CityEventsChart.jsx|getData()|{city, count} is {${city}, ${count}}`);
       return { city, count };
     });
-    console.log(`CityEventsChart.jsx|returning data`, data);
     return data;
   };
 
@@ -37,14 +33,14 @@ const CityEventsChart = ({ allLocations, events }) => {
           top: 20,
           right: 20,
           bottom: 60,
-          left: 20,
+          left: -30
         }}
       >
         <CartesianGrid />
         <XAxis type="category" dataKey="city" name="City" angle={60} interval={0} tick={{ dx: 20, dy: 40, fontSize: 14 }} />
         <YAxis type="number" dataKey="count" name="Number of events" />
-        <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-        <Scatter name="A school" data={data} fill="#8884d8" />
+        <Tooltip labelFormatter={() => { return ''; }} cursor={{ stroke: 'red', strokeDasharray: '5 5', strokeWidth: 3 }} />
+        <Scatter name="Meet Data" data={data} fill="#8884d8" />
       </ScatterChart>
     </ResponsiveContainer>
   );

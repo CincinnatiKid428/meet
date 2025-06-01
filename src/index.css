@@ -89,37 +89,29 @@ button:focus-visible {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    background-color:rgb(48, 14, 66);
+    background-color:#000;
     color: #ffffff;
   }
   a:hover {
     color: #747bff;
   }
   button {
-    background-color: #213547;
-  }
-
-  .event {
     background-color: #1a1a1a;
   }
-
-  input[type="text"],
-input[type="number"] {
+  .event {
+    background-color: #181818;
+  }
+  input[type="text"], input[type="number"] {
   border-color:#f9f9f9;
-
-}
-.suggestions > li {
-  background-color:#213547;
-}
-
-.suggestions > li:hover {
-  background-color: #3f5669;
-}
-
-.details-btn {
-  background-color:rgb(71, 65, 75);
-  color: rgb(230, 230, 230);
-}
-
-
+  }
+  .suggestions > li {
+    background-color:#4b4b4b;
+  }
+  .suggestions > li:hover {
+    background-color: #636363;
+  }
+  .details-btn {
+    background-color:rgb(71, 65, 75);
+    color: rgb(230, 230, 230);
+  }
 }

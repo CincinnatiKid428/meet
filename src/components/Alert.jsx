@@ -50,7 +50,7 @@ class WarningAlert extends Alert {
     super(props);
     this.color = 'rgb(226, 121, 0)';
     this.bgColor = 'rgb(255, 237, 214)';;
-    this.alertType = 'error-alert';
+    this.alertType = 'warning-alert';
   }
 }
 

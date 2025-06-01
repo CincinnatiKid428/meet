@@ -1,7 +1,8 @@
 // jest.config.js
 
 module.exports = {
-  testEnvironment: 'jest-environment-jsdom', // default for unit/integration tests
+  //testEnvironment: 'jest-environment-jsdom', // default for unit/integration tests
+  testEnvironment: 'jsdom', // Changed to jsdom for testing with Recharts "ResizeObserver = window" issue
   transform: {
     '^.+\\.jsx?$': 'babel-jest', // Transform JavaScript and JSX files using Babel
   },

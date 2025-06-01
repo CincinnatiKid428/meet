@@ -98,6 +98,12 @@ input[type="number"] {
   border-bottom-right-radius: 4px;
 }
 
+.charts-container {
+  border: brown solid var(--debug-border-width);
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 #event-list{
   border: blue solid var(--debug-border-width);
   display: flex;
@@ -147,6 +153,12 @@ input[type="number"] {
 
 .details-btn:active {
   border-color:rgb(89,71,99);
+}
+
+@media (max-width: 768px) {
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 450px) {
