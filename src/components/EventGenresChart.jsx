@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'Angular'];
+const genres = ['React', 'Node', 'JavaScript', 'jQuery', 'Angular'];
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#7B30AD'];
 
 const renderCustomizedLabel = ({ cx, cy, midAngle, outerRadius, percent, index }) => {
