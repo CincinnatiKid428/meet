@@ -1,7 +1,7 @@
 // src/components/EventGenresChart.jsx
 
 import React, { useState, useEffect } from 'react';
-import { PieChart, Pie, Sector, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'Angular'];
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#7B30AD'];
@@ -32,19 +32,9 @@ const EventGenresChart = ({ events }) => {
     setData(getData());
   }, [`${events}`]);
 
-
+  //Builds data set object for pie chart
   const getData = () => {
 
-    /* Should we want to dynamically filter by unique event.summary we can do so with the following:
-
-      const uniqueSummaries = [...new Set(events.map(event => event.summary))]; //Gets all unique event summaries
-      console.log(`EventGenresChart.jsx|Summaries set: `, uniqueSummaries);
-      const data = uniqueSummaries.map((summary)=>{
-        const value = events.filter((event)=> event.summary === summary).length;
-        const name = summary;
-        return {name, value};
-      });
-    */
     const data = genres.map((genre) => {
       const value = events.filter((event) => event.summary.includes(genre)).length
       const name = genre;
