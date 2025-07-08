@@ -29,20 +29,23 @@ const EventGenresChart = ({ events }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+
+    //Builds data set object for pie chart
+    const getData = () => {
+
+      const data = genres.map((genre) => {
+        const value = events.filter((event) => event.summary.includes(genre)).length
+        const name = genre;
+        return { name, value };
+      });
+
+      return data;
+    };
+
     setData(getData());
-  }, [`${events}`]);
+  }, [events]);
 
-  //Builds data set object for pie chart
-  const getData = () => {
 
-    const data = genres.map((genre) => {
-      const value = events.filter((event) => event.summary.includes(genre)).length
-      const name = genre;
-      return { name, value };
-    });
-
-    return data;
-  };
 
   return (
     <ResponsiveContainer width="99%" height={400}>
