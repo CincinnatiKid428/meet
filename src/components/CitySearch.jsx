@@ -36,9 +36,11 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
     setInfoAlert("");
   };
 
+  //const stringifiedLocations = JSON.stringify(allLocations || []);
+
   useEffect(() => {
     setSuggestions(allLocations);
-  }, [`${allLocations}`]); //using strigified value of allLocations to detect changes
+  }, [allLocations]); //using strigified value of allLocations to detect changes
 
   return (
     <div id="city-search">

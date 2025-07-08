@@ -30,17 +30,19 @@ const App = () => {
   //Determine path for image file based on URL
   const meetLogoImgPath = window.location.href.startsWith('http://localhost') ? "./../public/meet-logo.svg" : "/meet-logo.svg";
 
-  //Retrieves event data from Google Calendar API / mock-data for local testing
-  const fetchEventData = async () => {
-    const allEvents = await getEvents();
-    const filteredEvents = currentCity === "See all cities" ?
-      allEvents :
-      allEvents.filter(event => event.location === currentCity)
-    setEvents(filteredEvents.slice(0, currentNOE));
-    setAllLocations(extractLocations(allEvents));
-  };
+
 
   useEffect(() => {
+
+    //Retrieves event data from Google Calendar API / mock-data for local testing
+    const fetchEventData = async () => {
+      const allEvents = await getEvents();
+      const filteredEvents = currentCity === "See all cities" ?
+        allEvents :
+        allEvents.filter(event => event.location === currentCity)
+      setEvents(filteredEvents.slice(0, currentNOE));
+      setAllLocations(extractLocations(allEvents));
+    };
 
     //If network is offline, show warning alert
     if (navigator.onLine) {
