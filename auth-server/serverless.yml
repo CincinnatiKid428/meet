@@ -4,7 +4,7 @@ service: auth-server
 provider:
  name: aws
  runtime: nodejs18.x #may need same version of node.js --version 20.17.0
- region: us-east-1 #changed fron eu-central-1
+ region: us-east-1 # AWS region
  timeout: 30
  environment:
    CLIENT_ID: ${file(config.json):CLIENT_ID}
@@ -29,3 +29,10 @@ functions:
       - http:
           path: api/get-events/{access_token}
           method: get
+  sendContactEmail: #Adding serverless function to handle contact form in portfolio-website
+    handler: handler.sendContactEmail
+    events:
+      - http:
+          path: contact
+          method: post
+          cors: true

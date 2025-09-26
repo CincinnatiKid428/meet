@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "atatus-spa": "^4.6.4",
+    "aws-sdk": "^2.1692.0",
     "git": "^0.1.5",
     "nprogress": "^0.2.0",
     "react": "^19.0.0",

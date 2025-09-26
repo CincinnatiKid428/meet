@@ -1,5 +1,7 @@
 'use strict';
 
+import AWS from 'aws-sdk';
+const ses = new AWS.SES({ region: 'us-east-1' }); // AWS region 
 
 const { google } = require("googleapis");
 const calendar = google.calendar("v3");
@@ -118,4 +120,65 @@ module.exports.getCalendarEvents = async (event) => {
         body: JSON.stringify(error)
       };
     });
+};
+
+
+/**
+ * Function will send an email using AWS SES service
+ * @param {} event Email event triggered from portfolio site contact form
+ * @returns {} Status and message JSON object {statusCode, body}
+ */
+module.exports.sendContactEmail = async (event) => {
+  try {
+    const { name, email, message } = JSON.parse(event.body);
+
+    if (!email || !message || !name) {
+      return {
+        statusCode: 400,
+        headers: {
+          'Access-Control-Allow-Origin': '*', // Allow all origins
+          'Access-Control-Allow-Headers': '*', // Allow any headers
+        },
+        body: JSON.stringify({ error: 'Missing fields' }),
+      };
+    }
+
+    const emailParams = {
+      Source: 'bigpaws@duck.com', // Must be verified in SES
+      Destination: {
+        ToAddresses: ['bigpaws@duck.com'],
+      },
+      Message: {
+        Subject: {
+          Data: `Portfolio Contact Form Submission from ${name}`,
+        },
+        Body: {
+          Text: {
+            Data: `You received a message from ${name} (${email}):\n\n${message}`,
+          },
+        },
+      },
+    };
+
+    await ses.sendEmail(emailParams).promise();
+
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*', // Allow all origins
+        'Access-Control-Allow-Headers': '*', // Allow any headers
+      },
+      body: JSON.stringify({ success: true }),
+    };
+  } catch (err) {
+    console.error('Error sending email:', err);
+    return {
+      statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*', // Allow all origins
+        'Access-Control-Allow-Headers': '*', // Allow any headers
+      },
+      body: JSON.stringify({ error: 'Failed to send email' }),
+    };
+  }
 };
