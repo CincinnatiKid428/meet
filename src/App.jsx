@@ -13,6 +13,9 @@ import { InfoAlert, WarningAlert, ErrorAlert } from './components/Alert';
 
 import './App.css';
 
+//----- Atatus import and config /*Atatus trial expires: 5/25/2025*/
+//import * as atatus from 'atatus-spa';
+//atatus.config('909884598afd47f1a9001c30d43dc226').install();
 
 const App = () => {
 
